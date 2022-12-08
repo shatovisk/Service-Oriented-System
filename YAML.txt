@@ -1,0 +1,1732 @@
+openapi: 3.0.1
+info:
+  title: Project REST API
+  description: Generated REST API documentation
+  version: "0.1"
+servers:
+- url: /rest
+tags:
+- name: Comission
+  description: Entity CRUD operations
+- name: PersonStep
+  description: Entity CRUD operations
+- name: Step
+  description: Entity CRUD operations
+- name: User
+  description: Entity CRUD operations
+paths:
+  /entities/User:
+    get:
+      tags:
+      - User
+      summary: "Gets a list of entities: User"
+      description: Gets a list of entities
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The list of entities is returned in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_User'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - User
+      summary: "Creates new entity: User"
+      description: The method expects a JSON with entity object in the request body.
+        The entity object may contain references to other entities.
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_User'
+        required: true
+      responses:
+        "201":
+          description: Entity created. The created entity is returned in the response
+            body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_User'
+        "400":
+          description: "Bad request. For example, the entity may have a reference\
+            \ to the non-existing entity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to create the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/User/{entityId}:
+    get:
+      tags:
+      - User
+      summary: "Gets a single entity by identifier: User"
+      description: Gets a single entity by identifier
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_User'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+      - User
+      summary: "Updates the entity: User"
+      description: Updates the entity. Only fields that are passed in the JSON object
+        (the request body) are updated.
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+          description: Entity identifier
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_User'
+        required: true
+      responses:
+        "200":
+          description: Success. The updated entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_User'
+        "403":
+          description: Forbidden. The user doesn't have permissions to update the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      tags:
+      - User
+      summary: "Deletes the entity: User"
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success. Entity was deleted.
+        "403":
+          description: Forbidden. The user doesn't have permissions to delete the
+            entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/User/search:
+    get:
+      tags:
+      - User
+      summary: "Find entities by filter conditions: User"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: filter
+        in: query
+        required: true
+        schema:
+          type: string
+          description: JSON with filter definition
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_User'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - User
+      summary: "Find entities by filter conditions: User"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      requestBody:
+        description: JSON with filter definition
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_User'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Comission:
+    get:
+      tags:
+      - Comission
+      summary: "Gets a list of entities: Comission"
+      description: Gets a list of entities
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The list of entities is returned in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Comission'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - Comission
+      summary: "Creates new entity: Comission"
+      description: The method expects a JSON with entity object in the request body.
+        The entity object may contain references to other entities.
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_Comission'
+        required: true
+      responses:
+        "201":
+          description: Entity created. The created entity is returned in the response
+            body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Comission'
+        "400":
+          description: "Bad request. For example, the entity may have a reference\
+            \ to the non-existing entity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to create the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Comission/{entityId}:
+    get:
+      tags:
+      - Comission
+      summary: "Gets a single entity by identifier: Comission"
+      description: Gets a single entity by identifier
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Comission'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+      - Comission
+      summary: "Updates the entity: Comission"
+      description: Updates the entity. Only fields that are passed in the JSON object
+        (the request body) are updated.
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+          description: Entity identifier
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_Comission'
+        required: true
+      responses:
+        "200":
+          description: Success. The updated entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Comission'
+        "403":
+          description: Forbidden. The user doesn't have permissions to update the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      tags:
+      - Comission
+      summary: "Deletes the entity: Comission"
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success. Entity was deleted.
+        "403":
+          description: Forbidden. The user doesn't have permissions to delete the
+            entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Comission/search:
+    get:
+      tags:
+      - Comission
+      summary: "Find entities by filter conditions: Comission"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: filter
+        in: query
+        required: true
+        schema:
+          type: string
+          description: JSON with filter definition
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Comission'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - Comission
+      summary: "Find entities by filter conditions: Comission"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      requestBody:
+        description: JSON with filter definition
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Comission'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Step:
+    get:
+      tags:
+      - Step
+      summary: "Gets a list of entities: Step"
+      description: Gets a list of entities
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The list of entities is returned in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Step'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - Step
+      summary: "Creates new entity: Step"
+      description: The method expects a JSON with entity object in the request body.
+        The entity object may contain references to other entities.
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_Step'
+        required: true
+      responses:
+        "201":
+          description: Entity created. The created entity is returned in the response
+            body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Step'
+        "400":
+          description: "Bad request. For example, the entity may have a reference\
+            \ to the non-existing entity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to create the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Step/{entityId}:
+    get:
+      tags:
+      - Step
+      summary: "Gets a single entity by identifier: Step"
+      description: Gets a single entity by identifier
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Step'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+      - Step
+      summary: "Updates the entity: Step"
+      description: Updates the entity. Only fields that are passed in the JSON object
+        (the request body) are updated.
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+          description: Entity identifier
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_Step'
+        required: true
+      responses:
+        "200":
+          description: Success. The updated entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_Step'
+        "403":
+          description: Forbidden. The user doesn't have permissions to update the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      tags:
+      - Step
+      summary: "Deletes the entity: Step"
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success. Entity was deleted.
+        "403":
+          description: Forbidden. The user doesn't have permissions to delete the
+            entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/Step/search:
+    get:
+      tags:
+      - Step
+      summary: "Find entities by filter conditions: Step"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: filter
+        in: query
+        required: true
+        schema:
+          type: string
+          description: JSON with filter definition
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Step'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - Step
+      summary: "Find entities by filter conditions: Step"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      requestBody:
+        description: JSON with filter definition
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_Step'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/PersonStep:
+    get:
+      tags:
+      - PersonStep
+      summary: "Gets a list of entities: PersonStep"
+      description: Gets a list of entities
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The list of entities is returned in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_PersonStep'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - PersonStep
+      summary: "Creates new entity: PersonStep"
+      description: The method expects a JSON with entity object in the request body.
+        The entity object may contain references to other entities.
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_PersonStep'
+        required: true
+      responses:
+        "201":
+          description: Entity created. The created entity is returned in the response
+            body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_PersonStep'
+        "400":
+          description: "Bad request. For example, the entity may have a reference\
+            \ to the non-existing entity."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to create the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/PersonStep/{entityId}:
+    get:
+      tags:
+      - PersonStep
+      summary: "Gets a single entity by identifier: PersonStep"
+      description: Gets a single entity by identifier
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. The entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_PersonStep'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    put:
+      tags:
+      - PersonStep
+      summary: "Updates the entity: PersonStep"
+      description: Updates the entity. Only fields that are passed in the JSON object
+        (the request body) are updated.
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+          description: Entity identifier
+      requestBody:
+        description: JSON object with the entity
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/entity_PersonStep'
+        required: true
+      responses:
+        "200":
+          description: Success. The updated entity is returned in the response body.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entity_PersonStep'
+        "403":
+          description: Forbidden. The user doesn't have permissions to update the
+            entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    delete:
+      tags:
+      - PersonStep
+      summary: "Deletes the entity: PersonStep"
+      parameters:
+      - name: entityId
+        in: path
+        description: Entity identifier
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Success. Entity was deleted.
+        "403":
+          description: Forbidden. The user doesn't have permissions to delete the
+            entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /entities/PersonStep/search:
+    get:
+      tags:
+      - PersonStep
+      summary: "Find entities by filter conditions: PersonStep"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: filter
+        in: query
+        required: true
+        schema:
+          type: string
+          description: JSON with filter definition
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_PersonStep'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    post:
+      tags:
+      - PersonStep
+      summary: "Find entities by filter conditions: PersonStep"
+      description: Finds entities by filter conditions. The filter is defined by JSON
+        object that is passed as in URL parameter.
+      parameters:
+      - name: returnCount
+        in: query
+        description: Specifies whether the total count of entities should be returned
+          in the 'X-Total-Count' header.
+        schema:
+          type: boolean
+      - name: offset
+        in: query
+        description: Position of the first result to retrieve.
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Number of extracted entities.
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: "Name of the field to be sorted by. If the name is preceding\
+          \ by the '+' character, then the sort order is ascending, if by the '-'\
+          \ character then descending. If there is no special character before the\
+          \ property name, then ascending sort will be used."
+        schema:
+          type: string
+      - name: dynamicAttributes
+        in: query
+        description: Specifies whether entity dynamic attributes should be returned.
+        schema:
+          type: boolean
+      - name: returnNulls
+        in: query
+        description: Specifies whether null fields will be written to the result JSON.
+        schema:
+          type: boolean
+      - name: fetchPlan
+        in: query
+        description: Name of the fetchPlan which is used for loading the entity.
+        schema:
+          type: boolean
+      requestBody:
+        description: JSON with filter definition
+        content:
+          application/json:
+            schema:
+              type: string
+        required: true
+      responses:
+        "200":
+          description: Success. Entities that conforms filter conditions are returned
+            in the response body.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/entity_PersonStep'
+        "400":
+          description: "Bad request. For example, the condition value cannot be parsed."
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "403":
+          description: Forbidden. The user doesn't have permissions to read the entity.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+        "404":
+          description: Not found. MetaClass for the entity with the given name not
+            found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        details:
+          type: string
+          description: Detailed error description
+    entity_User:
+      type: object
+      properties:
+        _entityName:
+          type: string
+          default: User
+        _instanceName:
+          type: string
+          default: "firstName,lastName,username"
+        lastName:
+          type: string
+          example: String
+        timeZoneId:
+          type: string
+          example: String
+        active:
+          type: boolean
+          example: true
+        joiningDate:
+          type: string
+          description: java.time.LocalDate
+        version:
+          type: integer
+          format: int32
+          example: 42
+        steps:
+          type: array
+          items:
+            $ref: '#/components/schemas/entity_PersonStep'
+        picture:
+          type: string
+          description: io.jmix.core.FileRef
+        firstName:
+          type: string
+          example: String
+        onboardingStatus:
+          type: string
+          description: com.company.onboarding.entity.OnboardingStatus
+        password:
+          type: string
+          example: String
+        comission:
+          $ref: '#/components/schemas/entity_Comission'
+        id:
+          type: string
+          format: uuid
+          example: 19474a3b-99b5-482e-9e77-852be9adf817
+        email:
+          type: string
+          example: String
+        username:
+          type: string
+          example: String
+    entity_Comission:
+      type: object
+      properties:
+        _entityName:
+          type: string
+          default: Comission
+        _instanceName:
+          type: string
+          default: name
+        hsManager:
+          $ref: '#/components/schemas/entity_User'
+        name:
+          type: string
+          example: String
+        id:
+          type: string
+          format: uuid
+          example: 19474a3b-99b5-482e-9e77-852be9adf817
+        version:
+          type: integer
+          format: int32
+          example: 42
+    entity_Step:
+      type: object
+      properties:
+        _entityName:
+          type: string
+          default: Step
+        _instanceName:
+          type: string
+          default: name
+        duration:
+          type: integer
+          format: int32
+          example: 42
+        sortValue:
+          type: integer
+          format: int32
+          example: 42
+        name:
+          type: string
+          example: String
+        id:
+          type: string
+          format: uuid
+          example: 19474a3b-99b5-482e-9e77-852be9adf817
+        version:
+          type: integer
+          format: int32
+          example: 42
+    entity_PersonStep:
+      type: object
+      properties:
+        _entityName:
+          type: string
+          default: PersonStep
+        _instanceName:
+          type: string
+          default: ""
+        sortValue:
+          type: integer
+          format: int32
+          example: 42
+        dueDate:
+          type: string
+          description: java.time.LocalDate
+        step:
+          $ref: '#/components/schemas/entity_Step'
+        id:
+          type: string
+          format: uuid
+          example: 19474a3b-99b5-482e-9e77-852be9adf817
+        version:
+          type: integer
+          format: int32
+          example: 42
+        user:
+          $ref: '#/components/schemas/entity_User'
+        completedDate:
+          type: string
+          description: java.time.LocalDate
+curl: (6) Could not resolve host: \
+curl: (6) Could not resolve host: \
